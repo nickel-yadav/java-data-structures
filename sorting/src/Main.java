@@ -7,7 +7,7 @@ public class Main {
         for (int j : unsortedList) {
             System.out.println(j);
         }
-       int[] sortedList = insertionSort(unsortedList);
+       int[] sortedList = selectionSort(unsortedList);
         System.out.println("Sorted list");
         for (int i : sortedList) {
             System.out.println(i);
@@ -29,8 +29,22 @@ public class Main {
         return unsortedList;
     }
 
-    //TODO: Implement selectionSort
-    public static void selectionSort(ArrayList<Integer> unsortedList) {}
+    public static int[] selectionSort(int[] unsortedList) {
+        for (int i=0; i<unsortedList.length; i++) {
+            int minIndex = i;
+
+            for (int j=i; j<unsortedList.length; j++) {
+                if (unsortedList[j] < unsortedList[minIndex]) {
+                    minIndex = j;
+                }
+            }
+
+            int temp = unsortedList[i];
+            unsortedList[i] = unsortedList[minIndex];
+            unsortedList[minIndex] = temp;
+        }
+        return unsortedList;
+    }
 
     //TODO: Implement bubbleSort
     public static void bubbleSort(ArrayList<Integer> unsortedList) {}
