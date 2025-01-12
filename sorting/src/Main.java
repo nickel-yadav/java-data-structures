@@ -1,5 +1,3 @@
-import java.util.ArrayList;
-
 public class Main {
     public static void main(String[] args) {
        int[] unsortedList = {6,5,2,1,4,9,1};
@@ -7,7 +5,7 @@ public class Main {
         for (int j : unsortedList) {
             System.out.println(j);
         }
-       int[] sortedList = selectionSort(unsortedList);
+       int[] sortedList = bubbleSort(unsortedList);
         System.out.println("Sorted list");
         for (int i : sortedList) {
             System.out.println(i);
@@ -46,6 +44,22 @@ public class Main {
         return unsortedList;
     }
 
-    //TODO: Implement bubbleSort
-    public static void bubbleSort(ArrayList<Integer> unsortedList) {}
+    public static int[] bubbleSort(int[] unsortedList) {
+        int n = unsortedList.length;
+        for (int i=n-1; i>0; i--) {
+            boolean swapped = false;
+            for ( int j=0; j < i; j++) {
+                if (unsortedList[j] > unsortedList[j+1]) {
+                    int temp = unsortedList[j];
+                    unsortedList[j] = unsortedList[j+1];
+                    unsortedList[j+1] = temp;
+                    swapped = true;
+                }
+            }
+            if (!swapped) {
+                return unsortedList;
+            }
+        }
+        return unsortedList;
+    }
 }
