@@ -17,10 +17,11 @@ public class Main {
     }
 
     public static List<Integer> sortList(List<Integer> unsortedList) {
-        return sortListInterval(unsortedList, 0, unsortedList.size());
+        quickSortListInterval(unsortedList, 0, unsortedList.size());
+        return unsortedList;
     }
 
-    public static List<Integer> sortListInterval(List<Integer> unsortedList, int start, int end) {
+    public static List<Integer> mergeSortListInterval(List<Integer> unsortedList, int start, int end) {
         // Base condition where recursion bottoms out
         if (end - start <= 1) {
             return unsortedList.subList(start, end);
@@ -28,8 +29,8 @@ public class Main {
 
         // Recursively divide each list into smaller lists
         int midpoint = (start + end)/2;
-        List<Integer> leftList = sortListInterval(unsortedList, start, midpoint);
-        List<Integer> rightList = sortListInterval(unsortedList, midpoint, end);
+        List<Integer> leftList = mergeSortListInterval(unsortedList, start, midpoint);
+        List<Integer> rightList = mergeSortListInterval(unsortedList, midpoint, end);
 
         ArrayList<Integer> resultList = new ArrayList<>();
         int leftPointer = 0, rightPointer = 0;
@@ -55,5 +56,37 @@ public class Main {
             }
         }
         return resultList;
+    }
+
+    public static void quickSortListInterval(List<Integer> unsortedList, int start, int end) {
+        if (end - start <= 1) {
+            return;
+        }
+
+        int pivot = unsortedList.get(end - 1);
+        int startPtr = start, endPtr = end - 1;
+
+        while ( startPtr < endPtr) {
+            while (unsortedList.get(startPtr) < pivot && startPtr < endPtr) {
+                startPtr++;
+            }
+
+            while (unsortedList.get(endPtr) >= pivot && startPtr < endPtr) {
+                endPtr--;
+            }
+
+            if ( startPtr != endPtr) {
+                int temp = unsortedList.get(startPtr);
+                unsortedList.set(startPtr, unsortedList.get(endPtr));
+                unsortedList.set(endPtr, temp);
+            }
+        }
+
+        int temp = unsortedList.get(startPtr);
+        unsortedList.set(startPtr, unsortedList.get(end - 1));
+        unsortedList.set(end -1, temp);
+
+        quickSortListInterval(unsortedList, start, startPtr);
+        quickSortListInterval(unsortedList, startPtr + 1, end);
     }
 }
