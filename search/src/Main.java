@@ -5,7 +5,7 @@ public class Main {
 
     public static void main(String[] args) {
         List<Integer> sortedList = new ArrayList<>() {{ add(1); add(2); add(3); add(4); add(5); add(5); add(6); add(7); add(8);}};
-        System.out.println("First not smaller index " + firstNotSmaller(sortedList, 4));
+        System.out.println("First occurrence of target" + findFirstOccurrence(sortedList, 5));
 
     }
 
@@ -60,4 +60,22 @@ public class Main {
         return boundaryIndex;
     }
 
+    public static int findFirstOccurrence(List<Integer> arr, int target) {
+        int left = 0;
+        int right = arr.size() - 1;
+        int targetIndex = -1;
+        while (left <= right) {
+            int mid = left + (right - left)/2;
+            if (arr.get(mid) == target) {
+                targetIndex = mid;
+                right = mid - 1;
+            } else if (arr.get(mid) > target) {
+                left = mid + 1;
+            } else {
+                right = mid - 1;
+            }
+
+        }
+        return targetIndex;
+    }
 }
