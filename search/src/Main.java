@@ -6,7 +6,8 @@ public class Main {
     public static void main(String[] args) {
         List<Integer> sortedList = new ArrayList<>() {{ add(1); add(2); add(3); add(4); add(5); add(5); add(6); add(7); add(8);}};
         System.out.println("First occurrence of target" + findFirstOccurrence(sortedList, 5));
-
+        int n = 125;
+        System.out.println("Square root of " + n + "is " + squareRoot(n));
     }
 
 
@@ -77,5 +78,23 @@ public class Main {
 
         }
         return targetIndex;
+    }
+
+    public static int squareRoot(int n) {
+        if ( n == 0 ) return 0;
+        int left = 1;
+        int right = n;
+        int res = -1;
+        while ( left <= right) {
+            int mid = left + (right - left)/2;
+            if( mid == n / mid) return mid;
+            else if (mid > n/mid) {
+                res = mid;
+                right = mid - 1;
+            } else  {
+                left = mid + 1;
+            }
+        }
+        return res - 1;
     }
 }
