@@ -4,12 +4,9 @@ import java.util.List;
 public class Main {
 
     public static void main(String[] args) {
-        List<Integer> sortedList = new ArrayList<>() {{ add(1); add(2); add(3); add(4); add(5); add(5); add(6); add(7); add(8);}};
-        System.out.println("First occurrence of target" + findFirstOccurrence(sortedList, 5));
-        int n = 125;
-        System.out.println("Square root of " + n + "is " + squareRoot(n));
+        List<Integer> rotatedList = new ArrayList<>() {{ add(7); add(2); add(3); add(4); add(5); add(6); add(8); add(1);}};
+        System.out.println("Index of smallest element" + findMinRotated(rotatedList));
     }
-
 
     public static int binarySearch(List<Integer> arr, int target) {
       int left = 0;
@@ -96,5 +93,21 @@ public class Main {
             }
         }
         return res - 1;
+    }
+
+    public static int findMinRotated(List<Integer> arr) {
+        int left = 0;
+        int right = 0;
+        int boundaryIndex = -1;
+        while (left <= right) {
+            int mid = left + (right - left)/2;
+            if (arr.get(mid) <= arr.get(arr.size() -1)) {
+                boundaryIndex = mid;
+                right = mid - 1;
+            } else {
+                left = mid + 1;
+            }
+        }
+        return boundaryIndex;
     }
 }
