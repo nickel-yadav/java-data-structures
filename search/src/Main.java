@@ -4,8 +4,8 @@ import java.util.List;
 public class Main {
 
     public static void main(String[] args) {
-        List<Integer> rotatedList = new ArrayList<>() {{ add(7); add(2); add(3); add(4); add(5); add(6); add(8); add(1);}};
-        System.out.println("Index of smallest element" + findMinRotated(rotatedList));
+        List<Integer> mountainArray = new ArrayList<>() {{ add(1); add(2); add(3); add(4); add(3); add(2); add(1);}};
+        System.out.println("Peak element" + peakOfMountainArray(mountainArray));
     }
 
     public static int binarySearch(List<Integer> arr, int target) {
@@ -102,6 +102,22 @@ public class Main {
         while (left <= right) {
             int mid = left + (right - left)/2;
             if (arr.get(mid) <= arr.get(arr.size() -1)) {
+                boundaryIndex = mid;
+                right = mid - 1;
+            } else {
+                left = mid + 1;
+            }
+        }
+        return boundaryIndex;
+    }
+
+    public static int peakOfMountainArray(List<Integer> arr) {
+        int left = 0;
+        int right = arr.size() - 1;
+        int boundaryIndex = -1;
+        while (left <= right) {
+            int mid = left + (right - left)/2;
+            if (arr.get(mid) > arr.get(mid + 1)) {
                 boundaryIndex = mid;
                 right = mid - 1;
             } else {
