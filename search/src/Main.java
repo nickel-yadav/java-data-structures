@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Main {
@@ -125,5 +126,40 @@ public class Main {
             }
         }
         return boundaryIndex;
+    }
+
+    public static int newspapersSplit(List<Integer> newspaperReadTimes, int numCoworkers){
+        int low = Collections.max(newspaperReadTimes);
+        int high = 0;
+        int ans = -1;
+        for (int read_time: newspaperReadTimes) {
+            high += read_time;
+        }
+        while (low <= high) {
+            int mid = (low + high) /2;
+            if (feasible(newspaperReadTimes, numCoworkers, mid)) {
+                ans = mid;
+                high = mid - 1;
+            } else {
+                low = mid + 1;
+            }
+        }
+        return ans;
+    }
+
+    public static boolean feasible(List<Integer> newspaperReadTimes, int numCoworkers, int limit) {
+        int time = 0, numWorkers =0;
+        for (int readTime: newspaperReadTimes) {
+            if (time + readTime > limit) {
+                time = 0;
+                numWorkers++;
+            }
+            time += readTime;
+        }
+        // edge case to check if we need an extra coworker at the end
+        if (time != 0) {
+            numWorkers++;
+        }
+        return numWorkers < numCoworkers;
     }
 }
