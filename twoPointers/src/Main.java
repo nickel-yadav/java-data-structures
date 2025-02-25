@@ -40,4 +40,14 @@ public class Main {
         }
         return slow.val;
     }
+
+    public static void moveZeros(List<Integer> nums) {
+        int slow = 0;
+        for (int fast = 0; fast < nums.size(); fast++) {
+            int slowNum = nums.get(slow);
+            nums.set(slow, nums.get(fast));
+            nums.set(fast, slowNum);
+            slow++;
+        }
+    }
 }
