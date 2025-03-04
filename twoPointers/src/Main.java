@@ -50,4 +50,24 @@ public class Main {
             slow++;
         }
     }
+
+    public static List<Integer> twoSumSorted(List<Integer> arr, int target) {
+        int l =0;
+        int r = arr.size() - 1;
+        while (l < r) {
+            int twoSum = arr.get(l) + arr.get(r);
+            if (twoSum == target) {
+                return List.of(l,r);
+            }
+            else if (twoSum < target) {
+                l++;
+            }
+            else {
+                r--;
+            }
+        }
+        return null;
+    }
+
+
 }
